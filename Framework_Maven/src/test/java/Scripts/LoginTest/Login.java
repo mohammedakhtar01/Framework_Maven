@@ -31,7 +31,6 @@ public class Login {
 		objLoginPage.password.sendKeys(password);
 		objLoginPage.loginBtn.click();
 		
-		Assert.fail("FAILING TEST");
 	}
 	
 	@Test
