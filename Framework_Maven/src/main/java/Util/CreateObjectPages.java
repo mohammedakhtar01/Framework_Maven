@@ -72,44 +72,37 @@ public class CreateObjectPages {
 
 				if(row!=null){
 					
-//					Cell c1 = row.getCell(0);
-//					Cell c2 = row.getCell(1);
-//					Cell c3 = row.getCell(2);
-//					Cell c4 = row.getCell(3);
-//					
+					String p1 = row.getCell(0).getStringCellValue();
+					String p2 = row.getCell(1).getStringCellValue();
+					String p3 = row.getCell(2).getStringCellValue().replaceAll("[^\\dA-Za-z ]", "_");
+					String p4 = row.getCell(3).getStringCellValue();
+					String p5 = row.getCell(4).getStringCellValue();
 					
-					String c1 = row.getCell(0).getStringCellValue();
-					String c2 = row.getCell(1).getStringCellValue();
-					String c3 = row.getCell(2).getStringCellValue().replaceAll("[^\\dA-Za-z ]", "_");
-					String c4 = row.getCell(3).getStringCellValue();
-					String c5 = row.getCell(4).getStringCellValue();
-					
-					curCell=c1;
+					curCell=p1;
 					//replaceAll("[^\\dA-Za-z ]", "");
 
-					if(!c1.equals("")){
-						if(!curCell.equals(uniquePageNames.get(j))){
-							j=j+1;
-							i=i-1;
-							pages.add(elemList);
-							elemList=new ArrayList<String[]>();
-							//System.out.println("INNER=No of pages="+pages.size());
+					if(!p1.equals("")){
+						if(curCell.equals(uniquePageNames.get(j))){
+							//System.out.print(uniquePageNames.get(j));
+							String[] prop=new String[]{p1,p2,p3,p4,p5};
+							elemList.add(prop);
 
 						}else{
-							//System.out.print(uniquePageNames.get(j));
-							
-							String[] prop=new String[]{c1,c2,c3,c4,c5};
+							//
+							j=j+1;// increment uniquePageNames
+							pages.add(elemList);
+							elemList=new ArrayList<String[]>();
+							String[] prop=new String[]{p1,p2,p3,p4,p5};
 							elemList.add(prop);
 						}
-						//System.out.println();
 					}
 
 				}
 
 			}
 			
+			//Adding for Last Page
 			pages.add(elemList);
-			
 			
 			
 			//Display Elements
@@ -186,20 +179,7 @@ public class CreateObjectPages {
 	            
 	            w.close();
 	            System.out.println("CREATED PAGE-"+pageName);
-/*	            
-	            try {
-	            	
-					if(compileFile(strFilePath)){
-						System.out.println("CREATED PAGE-"+strFilePath);
-					}else{
-						System.out.println("SKIPPED PAGE-"+strFilePath);
-						flag++;
-					}
-	            } catch (Exception e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-				}
-*/	            
+
         	}	         
             
         	if(flag==0){
@@ -266,10 +246,6 @@ public class CreateObjectPages {
     			else if (elem[3].equalsIgnoreCase("tagname")){
     				elem[3]="TAG_NAME";
     			}
-    			else if (elem[3].equalsIgnoreCase("tagname")){
-    				elem[3]="TAG_NAME";
-    			}
-    			
     			
     			w.write("\t @FindBy(how = How."+elem[3].toUpperCase()+", using = \""+elem[4]+"\")");
         		w.write("\n");
@@ -296,29 +272,5 @@ public class CreateObjectPages {
 			e.printStackTrace();
 		}
     }
-	
-	public boolean compileFile(String filePath) throws Exception{
-		 String version = System.getProperty("java.version");
-			System.out.println("version="+version);
-			System.setProperty("java.home", "C:\\Program Files\\Java\\jdk"+version);
-			
-			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-			if(compiler!=null){
-				//System.out.println("JAVA="+compiler);
-				
-				int status=compiler.run(null, null, null, filePath);
-				if(status==0){
-					//System.out.println(fileName+"-COMPILE SUCCESS");
-					return true;
-				}else{
-					System.out.println(filePath+"-COMPILATION FAILED");
-					//System.out.println("COMP="+compiler.run(null, null, null, fileName));
-					return false;
-				}
-			}else{
-				System.out.println("COMPILER NOT FOUND");
-				throw new Exception("COMPILER NOT FOUND") ;
-			}
-	}
 	
 }

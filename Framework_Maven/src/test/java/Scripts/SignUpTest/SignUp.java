@@ -2,11 +2,15 @@ package Scripts.SignUpTest;
 
 import static Util.GenericOperations.*;
 
+import java.util.ArrayList;
+
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.reporters.jq.ReporterPanel;
 
 import Pages.LoginPage;
 import Pages.SignUpPage;
@@ -22,36 +26,47 @@ public class SignUp {
 	}
 
 	@Test
-	public void Test_001() {
-		System.out.println("TEST_001");
+	public void Test_003() {
+		System.out.println("TEST_003");
 		
 		LoginPage objLoginPage= new LoginPage(driver);
 		SignUpPage objSignUpPage= new SignUpPage(driver);
 		
-		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx", "SignUp");
-		String firstName= excelRead.getCellValue("FirstName", 1);
+		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx");
+		
+		String firstName= excelRead.getCellData("SignUp", "FirstName", 1);
 		objLoginPage.linkSignUp.click();
 		_wait(3000);
+		
+		_reportDone("Done-Test_001");
+		_reportPass("PASS-Test_001");
+		_reportPass("TEST_001", "Passed");
+		_reportFail("Fail-Test_001");
+		_reportFail("TEST_001", "FAIL", driver);
+		_reportFail("Message-", "expected value-", "Actual Val");
+		
+		
 		
 		Select select= new Select(objSignUpPage.paymentPlan);
 		select.selectByVisibleText("Free Edition");
 		
 		objSignUpPage.firstName.sendKeys(firstName);
 		
+		
 		_wait(3000);
-
+		
 	}
 
 	@Test
-	public void Test_002() {
+	public void Test_004() {
 		
-		System.out.println("TEST_002");
+		System.out.println("TEST_004");
 		
 		LoginPage objLoginPage= new LoginPage(driver);
 		SignUpPage objSignUpPage= new SignUpPage(driver);
 		
-		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx", "SignUp");
-		String firstName= excelRead.getCellValue("FirstName", 2);
+		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx");
+		String firstName= excelRead.getCellData("SignUp", "FirstName", 2);;
 		objLoginPage.linkSignUp.click();
 		_wait(3000);
 		

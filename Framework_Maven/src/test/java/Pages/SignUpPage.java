@@ -18,5 +18,8 @@ public class SignUpPage{
 	 @FindBy(how = How.NAME, using = "first_name")
 	 public WebElement firstName;
  
+	 @FindBy(how = How.NAME, using = "testMultiple")
+	 public java.util.List<WebElement> testMultiple;
+ 
 
  }

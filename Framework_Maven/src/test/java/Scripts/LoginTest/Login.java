@@ -1,9 +1,12 @@
 package Scripts.LoginTest;
 
-import static Util.GenericOperations.*;
 
-import org.testng.Assert;
-import org.testng.annotations.*;
+import static Util.GenericOperations._initializeTest;
+import static Util.GenericOperations.driver;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import Pages.LoginPage;
 import Util.ExcelRead;
@@ -22,14 +25,16 @@ public class Login {
 		
 		LoginPage objLoginPage= new LoginPage(driver);
 		
-		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx", "Login");
-		String userName=excelRead.getCellValue("UserName", 1);
-		String password=excelRead.getCellValue("Password", 1);
+		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx");
+
+		String userName=excelRead.getCellData("Login", "UserName", 1);
+		String password=excelRead.getCellData("Login", "Password", 1);
 		
 		
 		objLoginPage.userName.sendKeys(userName);
 		objLoginPage.password.sendKeys(password);
 		objLoginPage.loginBtn.click();
+		
 		
 	}
 	
@@ -39,11 +44,10 @@ public class Login {
 		
 
 		LoginPage objLoginPage= new LoginPage(driver);
-		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx", "Login");
-		
-		String userName=excelRead.getCellValue("UserName", 2);
-		String password=excelRead.getCellValue("Password", 2);
-		
+		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx");
+
+		String userName=excelRead.getCellData("Login", "UserName", 2);
+		String password=excelRead.getCellData("Login", "Password", 2);		
 		
 		
 		objLoginPage.userName.sendKeys(userName);
