@@ -38,15 +38,6 @@ public class SignUp {
 		objLoginPage.linkSignUp.click();
 		_wait(3000);
 		
-		_reportDone("Done-Test_001");
-		_reportPass("PASS-Test_001");
-		_reportPass("TEST_001", "Passed");
-		_reportFail("Fail-Test_001");
-		_reportFail("TEST_001", "FAIL", driver);
-		_reportFail("Message-", "expected value-", "Actual Val");
-		
-		
-		
 		Select select= new Select(objSignUpPage.paymentPlan);
 		select.selectByVisibleText("Free Edition");
 		
@@ -55,6 +46,7 @@ public class SignUp {
 		
 		_wait(3000);
 		
+		Assert.fail("Test Case failed due to Assertion");
 	}
 
 	@Test

@@ -4,10 +4,11 @@
 <listeners>
       <listener class-name="org.uncommons.reportng.HTMLReporter"/>
       <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-      <listener class-name="Reports.ExtentReportListener"/>
+      <listener class-name="Listeners.ExtentReportListener"/>
+      <listener class-name="Listeners.CustomListeners"/>
   </listeners>
   
-  <test thread-count="5" name="AkhtarTest">
+  <test thread-count="5" name="Test">
     <classes>
       <class name="Scripts.LoginTest.Login"/>
       <class name="Scripts.SignUpTest.SignUp"/>

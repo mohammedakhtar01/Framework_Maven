@@ -28,21 +28,6 @@ public class ExcelWrite {
 		sheetName=strSheetName;
 
 	}
-/*	
-	public static void main(String args[])
-	{
-		ExcelWrite objExcelWrite=new ExcelWrite(String);
-		objExcelWrite.writeToExistingFile();
-
-		writeToNewFile();
-		
-		objExcelWrite.writeToCell("Test1",2,"Akhtar");
-		objExcelWrite.close();
-		FileOutputStream outputStream = new FileOutputStream("JavaBooks.xlsx")) {
-            workbook.write(outputStream);
-		
-	}
-*/
 	
 	public  void writeToExistingFile(String colName,int row,String text){
 		

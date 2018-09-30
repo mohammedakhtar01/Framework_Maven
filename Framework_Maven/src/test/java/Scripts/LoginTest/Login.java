@@ -4,12 +4,14 @@ package Scripts.LoginTest;
 import static Util.GenericOperations._initializeTest;
 import static Util.GenericOperations.driver;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import Pages.LoginPage;
 import Util.ExcelRead;
+
 
 public class Login {
 		
@@ -38,11 +40,10 @@ public class Login {
 		
 	}
 	
-	@Test
+	@Test()
 	public void Test_002() {
 		System.out.println("TEST_002");
 		
-
 		LoginPage objLoginPage= new LoginPage(driver);
 		ExcelRead excelRead=new ExcelRead(".//TestData//TestData.xlsx");
 

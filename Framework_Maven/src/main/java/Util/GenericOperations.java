@@ -1,12 +1,12 @@
 package Util;
 
 
-
-import Util.CreateObjectPages;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -133,106 +133,33 @@ public class GenericOperations {
 	public static void _reportFail(String TestMethodName,String msg,WebDriver driver){
 		System.out.println("FAIL-"+TestMethodName+"-"+msg);
 		Reporter.log("FAIL-"+TestMethodName+"-"+msg);
-		_takeScreenshot(TestMethodName);	
+		_takeScreenshot();	
 		Assert.fail();
 	}
 
-	public static void _takeScreenshot(String fileName) {
+	public static String _takeScreenshot() {
 		
 		try {
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			String reportsPath = ".\\Reports";
+			Date date= new Date();
 			
-			//FileUtils.copyFile(scrFile,  new File(reportsPath+"\\Screenshots\\"+fileName+".png"));
-			Files.copy(scrFile, new File(reportsPath+"\\Screenshots\\"+fileName+".png"));
+			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			String reportsPath = System.getProperty("user.dir")+"//target//surefire-reports";
+			
+			String fileName="Screenshot_"+date.toString().replace(" ", "_").replace(":","_")+".jpg";
+			String filePath=reportsPath+"//"+fileName;
+			
+			FileUtils.copyFile(scrFile,  new File(filePath));
+			
+			
+			return filePath;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("EXCEPTION-TAKE SCREENSHOT");
 			e.printStackTrace();
+			return null;
 		}
 
 	}
-	
-	public static By _getObjectProperties(String pageName,String objectName){
-
-		boolean flag1=false,flag2=false;
-		By b=null;
-
-		for (ArrayList<String[]> page: CreateObjectPages.pages ){
-			//System.out.println("I");
-			//System.out.println("Elements in this page="+page.size());
-
-			if(page.get(0)[0].equalsIgnoreCase(pageName)){
-				//System.out.println("pageName="+page.get(0)[0]);
-
-				for (String[] elem : page) {
-					//System.out.println("J");
-					if(elem[1].equalsIgnoreCase(objectName)){
-						//System.out.println("TRUE-2");
-						//System.out.println("objectName="+elem[2]);
-						
-						if(elem[3].equalsIgnoreCase("linkText")) {
-							//elem[2]="linkText";
-							b= By.linkText(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("partialLinkText")){
-							//elem[2]="partialLinkText";
-							b=By.partialLinkText(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("className")){
-							//elem[2]="className";
-							b=By.className(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("id")){
-							//elem[2]="id";
-							b=By.id(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("name")){
-							//elem[2]="name";
-							b=By.name(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("xpath")){
-							//elem[2]="xpath";
-							//System.out.println("XPATH");
-							b=By.xpath(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("tagName")){
-							//elem[2]="tagName";
-							b=By.tagName(elem[4]);
-							flag1=true;
-							break;
-						}else if(elem[3].equalsIgnoreCase("cssSelector")){
-							//elem[2]="tagName";
-							b=By.cssSelector(elem[4]);
-							break;	
-						}else {
-							System.out.println("By=NULL");
-							flag1=true;
-							break;
-						}	
-
-					}	
-					if(flag1){
-						flag2=true;
-						break;
-					}
-				}
-				
-			}
-			if(flag2){
-				break;
-			}
-		}	
-
-		return b;
-	}
-
-	
 
 }
