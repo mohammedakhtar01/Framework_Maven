@@ -1,0 +1,8 @@
+1. Generic Operations- Contains Initialize Test ,waits and other generic Project level reusable methods
+2. Excel Read- To Read TestData
+3. Excel Write- To Write data to new/Existing Excel file.
+4. Create object Pages- Reads Page elements Properties from ObjectRepository Excel and creates POM.java file at runtime.
+5. ReportNg Reports
+6. Extent Reporting
+7. Run Using Maven
+8. Screenshot for Failed Testcases attached with reports
