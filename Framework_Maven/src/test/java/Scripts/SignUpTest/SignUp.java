@@ -19,13 +19,12 @@ import Util.ExcelRead;
 public class SignUp {
 
 
-
 	@BeforeMethod
 	public void setup() {
 		_initializeTest();
 	}
 
-	@Test
+	//@Test
 	public void Test_003() {
 		System.out.println("TEST_003");
 		
@@ -49,7 +48,7 @@ public class SignUp {
 		Assert.fail("Test Case failed due to Assertion");
 	}
 
-	@Test
+	//@Test
 	public void Test_004() {
 		
 		System.out.println("TEST_004");

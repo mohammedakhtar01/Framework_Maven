@@ -15,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -58,15 +59,18 @@ public class GenericOperations {
 			}
 			else if (browser.equalsIgnoreCase("IE")) {
 				System.setProperty("webdriver.ie.driver", ".\\Driver\\IEDriverServer.exe");
-				driver=new InternetExplorerDriver();
+				DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
+		        cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+		        cap.setCapability("requireWindowFocus", true);
+		        cap.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+				driver=new InternetExplorerDriver(cap);
 			}
 			else{
 				System.out.println("Browser value not matched.Please enter valid value.");
 			}
 
 			driver.manage().window().maximize();
-			driver.get(Url);
-			
+			driver.get(Url);	
 			
 			_wait(3000);
 			
@@ -123,6 +127,8 @@ public class GenericOperations {
 	public static void _reportFail(String msg){
 		System.out.println("FAIL-"+msg);
 		Reporter.log("FAIL-"+msg);
+		//_takeScreenshot();	
+		Assert.fail();
 	}
 	
 	public static void _reportFail(String msg,String expValue,String ActVal){
